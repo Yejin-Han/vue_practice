@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import PageHeader from './components/PageHeader'
-import PageFooter from './components/PageFooter'
+import PageHeader from '@/components/PageHeader'
+import PageFooter from '@/components/PageFooter'
 
 export default {
   name: 'App',
@@ -32,7 +32,7 @@ export default {
 
 #nav a {
   font-weight: bold;
-  color: #2ce350;
+  color: #2c3e50;
 }
 
 #nav a.router-link-exact-active {

@@ -1,0 +1,122 @@
+/* common setting */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+a { text-decoration: none; }
+
+header {
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #ccc;
+}
+
+footer{
+  padding-top: 2rem;
+  margin-top: 2rem;
+  border-top: 1px solid #ccc;
+}
+
+
+/* custom class */
+.c-bar {
+  width: 100%;
+  overflow: hidden;
+}
+
+.c-border {
+  border: 1px solid #ccc !important;
+}
+
+.c-btn, .c-button {
+  border: 0 none;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  vertical-align: middle;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  background-color: inherit;
+  text-align: center;
+  cursor: pointer;
+  white-space: nowrap;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.c-round {
+  border-radius: 0.25rem;
+}
+
+.c-small {
+  font-size: 0.75rem !important;
+}
+
+.c-table, .c-table-all {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  display: table;
+}
+
+.c-table-all {
+  border: 1px solid #ccc;
+}
+
+.c-table-all tr {
+  border-bottom: 1px solid #ddd;
+}
+
+.c-table th, .c-table td, .c-table-all th, .c-table-all td {
+  padding: 0.5rem;
+  display: table-cell;
+  text-align: left;
+  vertical-align: top;
+}
+
+.c-table th:first-child, .c-table td:first-child, .c-table-all th:first-child, .c-table-all td:first-child {
+  padding-left: 1rem;
+}
+
+.c-padding-16 {
+  padding-top: 1rem !important;
+  padding-bottom: 1rem !important;
+}
+
+.c-blue-grey {
+  color: #fff !important;
+  background-color: #607d8b !important;
+}
+
+.c-green {
+  color: #fff !important;
+  background-color: #4caf50 !important;
+}
+
+
+
+.board-list {
+  max-width: 768px;
+  width: 100%;
+  margin: auto;
+}
+
+.board-detail {
+  max-width: 768px;
+  width: 100%;
+  margin: auto;
+  text-align: left;
+}
+
+.board-contents {
+  padding: 0.75rem 0.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.common-buttons {
+  padding: 0.5rem;
+  text-align: right;
+}
