@@ -1,0 +1,197 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+@import url('https://fonts.googleapis.com/css2?family=Rozha+One&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+* { margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  font-size: 16px;
+}
+
+body {
+  font-family: "Pretendard Variable", "Malgun Gothic", sans-serif;
+  background: #1a1a1a;
+}
+
+a {
+  text-decoration: none;
+  display: inline-block;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+}
+
+img {
+  max-height: 100%;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.rozha-one-regular {
+  font-family: "Rozha One", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.innerbox {
+  width: 95%;
+  margin: 0 auto;
+}
+
+#app {
+  height: 100%;
+}
+
+#header {
+  height: 5rem;
+  z-index: 10000;
+}
+
+#header h1 {
+  width: 3rem;
+}
+
+#gnb a.router-link-exact-active {
+  color: rgb(217, 70, 239);
+}
+
+#footer {
+  height: 9rem;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(217,70,239,0.3) 100%);
+  color: #fff;
+  position: relative;
+  z-index: 10;
+}
+
+section {
+  min-height: calc(100% - 9rem);
+  box-sizing: border-box;
+  padding-top: 5rem;
+  color: #fff;
+  position: relative;
+}
+
+.main-con {
+  background: url("../img/bg-main.jpg") no-repeat center center / cover;
+}
+
+.btn-list {
+  max-width: 14rem;
+  width: 60%;
+  height: 3.5rem;
+  background: transparent;
+  position: relative;
+}
+
+.btn-list:hover:after {
+  content: "";
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid #E2E8F0;
+  border-radius: 50%;
+  animation: ring 2.5s infinite;
+}
+
+#contact .innerbox {
+  max-width: 1000px;
+  width: 90%;
+}
+
+.pagination button {
+  vertical-align: middle;
+}
+
+.pagination .page-btn {
+  width: 2rem;
+  height: 2rem;
+  position: relative;
+}
+
+.pagination .page-btn span {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.pagination .page-btn.active {
+  text-decoration: underline;
+  font-weight: 700;
+}
+
+.pagination .page-btn.active:after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  z-index: -1;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  background: rgba(217, 70, 239, 0.5);
+}
+
+.pagination .page-btn:not(.active):hover:after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  z-index: -1;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.pagination .arrow-btn {
+
+}
+
+.pagination .prev-btn {
+  margin-right: 1rem;
+}
+
+.pagination .next-btn {
+  margin-left: 1rem;
+}
+
+
+@keyframes ring {
+  0% {
+    width: 1.875rem;
+    height: 1.875rem;
+    opacity: 1;
+  }
+
+  100% {
+    width: 10rem;
+    height: 10rem;
+    opacity: 0;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+	html, body {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+	html, body {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+	html, body {
+    font-size: 11px;
+  }
+}
