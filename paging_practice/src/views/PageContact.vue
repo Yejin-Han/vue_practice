@@ -31,7 +31,7 @@ export default {
       this.isLoading = true;
       await axios.get('https://sample.bmaster.kro.kr/contacts')
       .then(response => {
-        this.pageArray = response.data.contacts;
+        this.pageArray = response.data.contacts.filter(contact => contact.name && contact.tel);
       })
       .catch(err => {
         console.log("An error occurred: ", err);

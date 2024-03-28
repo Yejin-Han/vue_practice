@@ -1,6 +1,13 @@
 <template>
   <div class="innerbox">
     <table class="w-full text-center">
+      <colgroup>
+        <col style="width: 5%">
+        <col style="width: 25%">
+        <col style="width: 25%">
+        <col style="width: 10%">
+        <col style="width: 35%">
+      </colgroup>
       <tr class="border-y border-neutral-200 border-t-2">
         <th class="px-4 py-4 bg-slate-200/[0.1] xl:py-3">No.</th>
         <th class="px-4 py-4 bg-slate-200/[0.1] xl:py-3">Name</th>
@@ -9,7 +16,7 @@
         <th class="px-4 py-4 bg-slate-200/[0.1] xl:py-3">Unique Code</th>
       </tr>
       <tr class="border-b border-neutral-200" v-for="(li, idx) in contactList" :key="idx">
-        <td class="px-4 py-4 xl:py-3">{{ idx + 1 }}</td>
+        <td class="px-4 py-4 xl:py-3">{{ idx + 1 + this.pageNum * 10 }}</td>
         <td class="px-4 py-4 xl:py-3">{{ li.name }}</td>
         <td class="px-4 py-4 xl:py-3">{{ li.tel }}</td>
         <td class="px-4 py-4 xl:py-3">{{ li.address }}</td>
