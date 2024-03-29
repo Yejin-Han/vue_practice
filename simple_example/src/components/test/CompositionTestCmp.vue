@@ -1,5 +1,5 @@
 <template>
-  <div class="testWrap">
+  <div class="CompositionTestCmp testWrap">
     <h2>👨‍🏫 Composition Example</h2>
     <button @click="initTest();">초기화</button>
     <div>
@@ -56,9 +56,3 @@ function initTest() {
   selected.value = "-";
 }
 </script>
-
-<style scoped>
-.testWrap {
-  color: #131f9d;
-}
-</style>

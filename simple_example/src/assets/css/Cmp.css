@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');
+
+* {
+  font-family: 'Gugi', 'Malgun Gothic', sans-serif;
+}
+
 a {
   text-decoration: none;
   color: #000;
@@ -7,18 +13,37 @@ a {
 .HeaderCmp {
   text-align: center;
   margin-bottom: 4rem;
+  color: #2c3e50;
 }
 
-.wrap {
-  max-width: 1100px;
-  margin: 0 auto;
+.MenuCmp {
+  text-align: left;
+  margin-left: 6rem;
 }
 
 .testWrap {
-  font-size: 0.8em;
+  text-align: left;
+  font-size: small;
+  font-weight: lighter;
 }
 
 .testWrap h2 {
   font-size: 1.5rem;
   margin-bottom: 3rem;
+}
+
+.IfTestCmp {
+  color: chocolate;
+}
+
+.ForTestCmp {
+  color: #41b883;
+}
+
+.CompositionTestCmp {
+  color: midnightblue;
+}
+
+.APICallTestCmp {
+  color: slateblue;
 }

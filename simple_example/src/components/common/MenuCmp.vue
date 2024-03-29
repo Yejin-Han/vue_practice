@@ -9,6 +9,7 @@
       <h5><router-link to="/1">▷ IF TEST</router-link></h5>
       <h5><router-link to="/2">▷ FOR TEST</router-link></h5>
       <h5><router-link to="/3">▷ Composition TEST</router-link></h5>
+      <h5><router-link to="/4">▷ API Call TEST</router-link></h5>
     </div>
     <br />
     <div>

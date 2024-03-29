@@ -1,5 +1,5 @@
 <template>
-  <div class="testWrap">
+  <div class="IfTestCmp testWrap">
     <h2>👨‍🏫 If Test</h2>
     <h3>리스트</h3>
     <div>{{ list }}</div>
@@ -29,9 +29,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.testWrap {
-  color: #b4651a;
-}
-</style>

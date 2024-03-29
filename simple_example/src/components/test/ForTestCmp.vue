@@ -1,5 +1,5 @@
 <template>
-  <div class="testWrap">
+  <div class="ForTestCmp testWrap">
     <h2>👨‍🏫 For Test</h2>
     <h3>리스트</h3>
     <div>{{ list }}</div>
@@ -24,9 +24,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.testWrap {
-  color: #1fbe7f;
-}
-</style>
