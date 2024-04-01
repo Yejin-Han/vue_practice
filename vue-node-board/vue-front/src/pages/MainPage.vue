@@ -1,11 +1,9 @@
 <template>
   <v-app>
     <v-app-bar app color="red" dark>
-      <v-spacer></v-spacer>
-      <v-app-bar-title>
+      <v-app-bar-title style="margin-inline-start: 0;">
         <div :style="{textAlign: 'center', fontSize:'xx-large'}">메인화면</div>
       </v-app-bar-title>
-      <v-spacer></v-spacer>
     </v-app-bar>
     <v-main>
       <v-container>
@@ -44,3 +42,9 @@ export default {
   }
 }
 </script>
+
+<style>
+/* .v-toolbar__content > .v-toolbar-title {
+  margin-inline-start: 0 !important;
+} */
+</style>
