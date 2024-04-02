@@ -1,24 +1,24 @@
 <template>
-  <v-app>
-    <v-app-bar app color="red" dark>
-      <v-app-bar-title style="margin-inline-start: 0;">
-        <div :style="{textAlign: 'center', fontSize:'xx-large'}">메인화면</div>
+  <v-app class="orbit-regular">
+    <v-app-bar color="blue-darken-4">
+      <v-app-bar-title :style="{marginInlineStart: 0, lineHeight: 1}">
+        <div style="text-align: center; font-size: 2rem;" class="jua-regular">메인화면</div>
       </v-app-bar-title>
     </v-app-bar>
     <v-main>
-      <v-container>
+      <v-container :style="{marginTop: '2rem'}">
         <v-row align="center" :style="{justifyContent: 'center'}">
           <v-col cols="12" md="2" align="center">
-            <v-btn color="light-green" @click="movetoboard1"
-                   :style="{height:'50px', width:'170px', fontWeight:'bold', fontSize:'large'}">게시판1</v-btn>
+            <v-btn color="light-blue-lighten-3" @click="movetoboard1"
+                   :style="{height:'3.125rem', width:'10.625rem', fontWeight:'bold', fontSize:'1.125rem'}">게시판1</v-btn>
           </v-col>
           <v-col cols="12" md="2" align="center">
-            <v-btn color="yellow" @click="movetoboard2"
-                   :style="{height:'50px', width:'170px', fontWeight:'bold', fontSize:'large'}">게시판2</v-btn>
+            <v-btn color="cyan-lighten-3" @click="movetoboard2"
+                   :style="{height:'3.125rem', width:'10.625rem', fontWeight:'bold', fontSize:'1.125rem'}">게시판2</v-btn>
           </v-col>
           <v-col cols="12" md="2" align="center">
-            <v-btn color="orange" type="submit" @click="movetoboard3"
-                   :style="{height:'50px', width:'170px', fontWeight:'bold', fontSize:'large'}">게시판3</v-btn>
+            <v-btn color="teal-lighten-3" type="submit" @click="movetoboard3"
+                   :style="{height:'3.125rem', width:'10.625rem', fontWeight:'bold', fontSize:'1.125rem'}">게시판3</v-btn>
           </v-col>
         </v-row>
       </v-container>
@@ -42,9 +42,3 @@ export default {
   }
 }
 </script>
-
-<style>
-/* .v-toolbar__content > .v-toolbar-title {
-  margin-inline-start: 0 !important;
-} */
-</style>

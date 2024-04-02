@@ -1,54 +1,57 @@
 <template>
-  <v-app>
-    <v-app-bar app color="red" dark>
-      <v-app-bar-title style="margin-inline-start: 0;">
-        <div :style="{textAlign: 'center', fontSize:'xx-large'}">게시판 {{ $route.params.id }}</div>
+  <v-app class="orbit-regular">
+    <v-app-bar color="blue-darken-4">
+      <v-app-bar-title :style="{marginInlineStart: 0, lineHeight: 1}">
+        <div style="text-align: center; font-size: 2rem;" class="jua-regular">게시판 {{ $route.params.id }}</div>
       </v-app-bar-title>
     </v-app-bar>
     <v-main>
-      <v-container>
+      <v-container :style="{marginTop: '2rem'}">
         <v-row>
           <v-col cols="12" md="4"></v-col>
           <v-col cols="12" md="2">
-            <v-btn color="cyan" :style="{height: '50px', width: '170px', fontWeight: 'bold', fontSize: 'large'}" @click="movetomain">홈으로</v-btn>
+            <v-btn color="blue-grey-darken-2" :style="{height:'3.125rem', width:'10.625rem', fontWeight:'bold', fontSize:'1.125rem'}" @click="movetomain">홈으로</v-btn>
           </v-col>
           <v-col cols="12" md="2">
-            <v-btn color="pink accent-1" :style="{height: '50px', width: '170px', fontWeight: 'bold', fontSize: 'large'}" @click="movetowrite">글작성</v-btn>
+            <v-btn color="yellow-lighten-2" :style="{height:'3.125rem', width:'10.625rem', fontWeight:'bold', fontSize:'1.125rem'}" @click="movetowrite">작성하기</v-btn>
           </v-col>
           <v-col cols="12" md="2"></v-col>
-          <v-col cols="12" md="2">
-            <div :style="{fontSize: 'x-large', marginTop: '7px'}">글 개수 : {{ cnt }}개</div>
+          <v-col cols="12" md="2" :style="{position: 'relative'}">
+            <div :style="{position: 'absolute', fontSize: '1rem', right: '0', bottom: '0'}">글 개수 : {{ cnt }}개</div>
           </v-col>
         </v-row>
         <v-row>
-          <v-table style="width: 100%;">
+          <table style="border-collapse: collapse; border-spacing: 0; width: 100%; margin-top: 1rem;">
             <thead>
               <tr style="font-weight: bold;">
-                <td style="width: 20%; font-size: x-large;">작성자</td>
-                <td style="width: 50%; font-size: x-large;">제목</td>
-                <td style="width: 30%; font-size: x-large;">작성일</td>
+                <td style="width: 20%; font-size: 1.25rem;">작성자</td>
+                <td style="width: 60%; font-size: 1.25rem;">제목</td>
+                <td style="width: 20%; font-size: 1.25rem;">작성일</td>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in contentlist" :key="item.id" @click="movetocontent(item.id)">
-                <td>{{ item.writer }}</td>
-                <td>{{ item.title }}</td>
-                <td>{{ item.createdAt.split('T')[0] }}</td>
+              <tr v-if="!contentlist.length">
+                <td colspan="3">작성된 글이 없습니다.</td>
+              </tr>
+              <tr v-else v-for="item in contentlist" :key="item.id" @click="movetocontent(item.id)">
+                <td class="cursor-pointer">{{ item.writer }}</td>
+                <td class="cursor-pointer">{{ item.title }}</td>
+                <td class="cursor-pointer">{{ item.createdAt.split('T')[0] }}</td>
                 <!-- Sequelize의 createdAt, updatedAt의 날짜 형식이 '2021-12-10T12:38:52.000Z' 이런 식이여서 split('T')[0]을 통해 날짜만 표시 -->
               </tr>
             </tbody>
-          </v-table>
+          </table>
         </v-row>
-        <v-row style="padding-top: 20px;">
+        <v-row style="padding-top: 3rem;">
           <v-spacer />
-          <v-btn width="10px" @click="movetopreviouspage">
-            <v-icon color="red" large>mdi-arrow-left-bold-outline</v-icon>
+          <v-btn width="0.5rem" @click="movetopreviouspage">
+            <v-icon color="red-darken-3" large>mdi-arrow-left-bold-outline</v-icon>
           </v-btn>
-          <div style="margin-top: 5px; margin-right: 10px; margin-left: 10px;">
-            {{ $route.query.page }} / {{ totalPage }} page          
+          <div style="margin: 0.4rem 1.5rem 0;">
+            {{ $route.query.page }} / {{ totalPage }} page
           </div>
-          <v-btn width="10px" @click="movetonextpage">
-            <v-icon color="red" large>mdi-arrow-right-bold-outline</v-icon>
+          <v-btn width="0.5rem" @click="movetonextpage">
+            <v-icon color="red-darken-3" large>mdi-arrow-right-bold-outline</v-icon>
           </v-btn>
           <v-spacer />
         </v-row>
@@ -136,8 +139,13 @@ export default {
 </script>
 
 <style scoped>
+
 tr, td {
-  border: 1px solid;
+  border: 1px solid #333;
   text-align: center;
+}
+
+td {
+  padding: 0.8rem 0.5rem;
 }
 </style>
