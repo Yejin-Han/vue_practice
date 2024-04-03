@@ -1,7 +1,21 @@
 const router = require('express').Router();
 const mysql = require('mysql2');
 const db = require('.././models');
-const Op = require('sequelize').Op;
+const Op = require('sequelize').Op; // 검색 기능을 위해
+const multer = require('multer'); // 이미지 업로드 기능을 위해
+const fs = require('fs'); // 이미지 업로드 기능을 위해
+
+// multer을 이용한 파일 업로드 기능 구현
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) { // 경로 => uploads 폴더
+    cb(null, 'uploads/');
+  },
+  filename: function(req, file, cb) { // 파일명 => 이미지 업로드 시 원본 이름 그대로
+    cb(null, file.originalname);
+  }
+});
+
+const upload = multer({ storage: storage });
 
 db.sequelize.sync();
 
@@ -12,6 +26,7 @@ router.post('/write', function(req, res) {
     writer: req.body.writer,
     title: req.body.title,
     text: req.body.text,
+    imgcnt: req.body.imgcnt,
   }).then(function() {
     return res.status(200).json({ message: '글 작성 완료!' });
   }).catch(function(err) {
@@ -140,6 +155,35 @@ router.post('/search', function(req, res) {
       return res.status(404).json({ message: '에러' });
     });
   }
+});
+
+// 글 작성 페이지에서 이미지를 올리면 실행하는 부분
+router.post('/imagesave', upload.array('filelist'), function(req, res) {
+  // 전송된 formData의 filelist에 해당하는 value 값들을 multer을 통해 저장
+  let i, newname;
+  db.content.findOne({ // 새 글 작성 시 기존에 있던 가장 큰 id + 1로 자동 저장되므로, 가장 큰 id를 찾아줌
+    limit: 1,
+    order: [['id', 'DESC']],
+    raw: true,
+  }).then(result => {
+    try {
+      newname = result.id;
+    } catch(e) {
+      // 등록된 글이 하나도 없으면 id가 null이여서 에러 발생하므로 대신 0으로 설정
+      newname = 0;
+    }
+
+    for(i = 0; i < req.files.length; i++) {
+      // 위에서 지정한 이미지이름(원본 그대로)을 filesystem을 통해 바꿔주는 작업
+      fs.renameSync(req.files[i].path, 'uploads/' + (newname + 1) + '-' + (i + 1) + '.png');
+    }
+
+    return res.status(200).json({ message: '이미지 업로드 완료!' });
+  }).catch(err => {
+    console.log(err);
+
+    return res.status(404).json(return res.status(404).json({ message: '에러' }););
+  });
 });
 
 module.exports = router;
