@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    /* updatedAt, createdAt은 sequelize에서 자동으로 생성해준다고 함 */
   }, {
     charset: 'utf8',
     collate: 'utf8_general_ci', // db에 한글 사용이 가능하도록 함

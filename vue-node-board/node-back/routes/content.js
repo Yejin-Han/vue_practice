@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const mysql = require('mysql2');
 const db = require('.././models');
+const Op = require('sequelize').Op;
 
 db.sequelize.sync();
 
@@ -93,6 +94,52 @@ router.post('/edit', function(req, res) {
     console.log(err);
     return res.status(404).json({ message: '에러' });
   });
+});
+
+// 검색 기능 (특정단어를 포함하는 검색)
+router.post('/search', function(req, res) {
+  if(req.body.searchoption == '제목') { // 검색옵션이 제목일 때
+    db.content.findAndCountAll({
+      where: {
+        title: {
+          // "%" + [단어] + "%"를 통해 [단어]가 포함된 모든 것 검색 가능
+          [Op.like]: "%" + req.body.searchkeyword + "%"
+        }
+      },
+      order: [['id', 'ASC']],
+      raw: true,
+    }).then(result => {
+      const cnt = new Object();
+      cnt.cnt = result.count;
+      result.rows.push(cnt);
+
+      return res.status(200).json(result.rows);
+    }).catch(err => {
+      console.log(err);
+      
+      return res.status(404).json({ message: '에러' });
+    });
+  } else { // 검색옵션이 작성자일 때
+    db.content.findAndCountAll({
+      where: {
+        writer: {
+          [Op.like]: "%" + req.body.searchkeyword + "%"
+        }
+      },
+      order: [['id', 'ASC']],
+      raw: true,
+    }).then(result => {
+      const cnt = new Object();
+      cnt.cnt = result.count;
+      result.rows.push(cnt);
+
+      return res.status(200).json(result.rows);
+    }).catch(err => {
+      console.log(err);
+      
+      return res.status(404).json({ message: '에러' });
+    });
+  }
 });
 
 module.exports = router;
