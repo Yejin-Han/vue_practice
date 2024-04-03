@@ -91,19 +91,24 @@ export default {
       });
     },
     deletecontent() {
-      axios({
-        url: 'http://127.0.0.1:52273/content/delete/',
-        method: "POST",
-        data: {
-          id: this.$route.query.id
-        }
-      }).then(res => {
-        alert(res.data.message);
-        // 삭제 후 그 게시판의 1페이지로 이동
-        window.location.href = window.location.pathname.slice(0, -8) + '/?page=1';
-      }).catch(err => {
-        alert(err);
-      })
+      let confirmMsg = false;
+      confirmMsg = confirm("게시물을 삭제하시겠습니까?");
+      
+      if(confirmMsg) {
+        axios({
+          url: 'http://127.0.0.1:52273/content/delete/',
+          method: "POST",
+          data: {
+            id: this.$route.query.id
+          }
+        }).then(res => {
+          alert(res.data.message);
+          // 삭제 후 그 게시판의 1페이지로 이동
+          window.location.href = window.location.pathname.slice(0, -8) + '/?page=1';
+        }).catch(err => {
+          alert(err);
+        });
+      }
     },
     changeTime(utc) {
       const date = new Date(utc);
@@ -125,7 +130,7 @@ export default {
 </script>
 
 <style>
-textarea[readonly="readonly"] {
-  background: #e9e9e9;
+textarea[readonly] {
+  background: #f4f6f7;
 }
 </style>
