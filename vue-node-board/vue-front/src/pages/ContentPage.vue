@@ -1,5 +1,5 @@
 <template>
-  <v-app class="orbit-regular">
+  <v-app class="orbit-regular content">
     <v-app-bar color="blue-darken-4">
       <v-app-bar-title :style="{marginInlineStart: 0, lineHeight: 1}">
         <div style="text-align: center; font-size: 2rem;" class="jua-regular">게시판 {{ $route.params.id }}</div>
@@ -18,8 +18,9 @@
                 <div style="margin-top: 0.625rem;"><div style="display: inline-block; width: 6rem;">작성일</div><div style="display: inline-block;">: {{ changeTime(createdAt) }}</div></div>
                 <div style="margin-top: 0.625rem;"><div style="display: inline-block; width: 6rem;">최근수정일</div><div style="display: inline-block;">: {{ changeTime(updatedAt) }}</div></div>
                 <div style="margin-top: 1.5rem;">내용</div>
-                <v-textarea variant="solo" no-resize v-model="text" rows="13" :style="{marginTop: '0.625rem'}" :readonly="editable===false"></v-textarea> <!-- 기본은 수정 불가, 수정버튼을 누르면 수정할 수 있도록 -->
-                <div style="text-align: right; margin-bottom: 1.25rem;">
+                <v-textarea variant="solo" no-resize hide-details="auto" v-model="text" rows="13" :style="{marginTop: '0.625rem'}" :readonly="editable===false"></v-textarea> <!-- 기본은 수정 불가, 수정버튼을 누르면 수정할 수 있도록 -->
+                <v-img v-for="(item, idx) in imglist" :key="idx" :src="require(`../../../node-back/uploads/${item}`)" cover style="width: 25rem; height: 18.75rem; border: 1px solid #999; margin-bottom: 1rem;" />
+                <div style="text-align: right; margin: 2rem 0 1.25rem;">
                   <v-btn style="width: 5rem;" @click="moveback">뒤로</v-btn>
                   <v-btn style="width: 5rem; margin-left: 1rem;" @click="editcontent" v-if="editable===false">수정</v-btn>
                   <v-btn style="width: 5rem; margin-left: 1rem;" @click="editcontentfinish" v-if="editable===true">수정완료</v-btn>
@@ -44,7 +45,8 @@ export default {
       createdAt: '',
       updatedAt: '',
       text: '',
-      
+      imglist: [], // 불러올 이미지들의 url을 저장하는 객체
+      imgcnt: 0, // 불러올 이미지 개수 (db에서 받아옴)
       editable: false,
     }
   },
@@ -61,9 +63,17 @@ export default {
       this.createdAt = res.data.createdAt;
       this.updatedAt = res.data.updatedAt;
       this.text = res.data.text;
+      this.imgcnt = res.data.imgcnt;
+      console.log(res.data);
+
+      for(let i = 1; i <= res.data.imgcnt; i++) {
+        this.imglist.push(res.data.id + '-' + i + '.png'); // 이미지 저장 시 '글의id - 1.png' 형식
+      console.log(res.data.id + '-' + i + '.png');
+      }
+
     }).catch(err => {
       alert(err);
-    })
+    });
   },
   methods: {
     moveback() {

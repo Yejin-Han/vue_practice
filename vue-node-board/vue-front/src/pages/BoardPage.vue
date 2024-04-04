@@ -1,5 +1,5 @@
 <template>
-  <v-app class="orbit-regular">
+  <v-app class="orbit-regular board">
     <v-app-bar color="blue-darken-4">
       <v-app-bar-title :style="{marginInlineStart: 0, lineHeight: 1}">
         <div style="text-align: center; font-size: 2rem;" class="jua-regular">게시판 {{ $route.params.id }}</div>
@@ -139,7 +139,6 @@ export default {
 </script>
 
 <style scoped>
-
 tr, td {
   border: 1px solid #333;
   text-align: center;

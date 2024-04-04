@@ -1,5 +1,5 @@
 <template>
-  <v-app class="orbit-regular">
+  <v-app class="orbit-regular main">
     <v-app-bar color="blue-darken-4">
       <v-app-bar-title :style="{marginInlineStart: 0, lineHeight: 1}">
         <div style="text-align: center; font-size: 2rem;" class="jua-regular">메인화면</div>
@@ -23,17 +23,16 @@
         </v-row>
       </v-container>
       <v-container :style="{marginTop: '2rem'}">
-        <v-row :style="{justifyContent: 'center', height: '4.5rem'}">
+        <v-row :style="responsiveRow">
           <v-col cols="12" md="2" :style="{height: '100%'}"/>
-          <v-col cols="12" md="2" :style="{display: 'flex', alignItems: 'center', height: '100%'}">
-            <v-select :items="searchoption" v-model="searchoptionselected" variant="underlined" hide-details="auto" :style="{width: '52%', marginLeft: '48%'}" />
+          <v-col cols="12" md="2" :style="{height: '100%'}">
+            <v-select :items="searchoption" v-model="searchoptionselected" variant="underlined" hide-details="auto" :style="responsiveSelect" />
           </v-col>
           <v-col cols="12" md="4" :style="{height: '100%'}">
-            <input type="text" v-model="searchkeyword" id="search_input" placeholder="검색키워드" style="width: 100%; height: 100%; padding-top: 20px; outline: none; border-bottom: 1px solid #999;" @keyup.enter="searchstart">
-            <!-- <v-text-field v-model="searchkeyword" variant="outlined" label="검색키워드" hide-details="auto" :style="{width: '100%', boxSizing: 'border-box', height: '100%'}" /> -->
+            <v-text-field v-model="searchkeyword" variant="underlined" hide-details="auto" label="검색키워드" clearable :style="responsiveTextField" @keyup.enter="searchstart" />
           </v-col>
-          <v-col cols="12" md="1" :style="{display: 'flex', alignItems: 'flex-end', height: '100%'}">
-            <v-btn @click="searchstart" :style="{width: '100%', marginTop: '20px'}">검색</v-btn>
+          <v-col cols="12" md="1" :style="{height: '100%', textAlign: 'center'}">
+            <v-btn @click="searchstart" :style="responsiveBtn">검색</v-btn>
           </v-col>
           <v-col cols="12" md="3" :style="{boxSizing: 'border-box', height: '100%'}" />
         </v-row>
@@ -78,6 +77,70 @@ export default {
       contentlist: [] // 게시글 리스트
     }
   },
+  computed: {
+    responsiveSelect() {
+      if (this.$vuetify.display.smAndDown) {
+        return {
+          maxWidth: '10rem',
+          width: '95%',
+          margin: '0 auto',
+        };
+      } else {
+        return {
+          maxWidth: 'auto',
+          width: '60%',
+          marginLeft: '40%',
+          fontSize: '0.8rem',
+        };
+      }
+    },
+    responsiveTextField() {
+      if (this.$vuetify.display.smAndDown) {
+        return {
+          maxWidth: '30rem',
+          width: '95%',
+          margin: '0 auto',
+        };
+      } else {
+        return {
+          maxWidth: 'auto',
+          width: '100%',
+          height: '100%',
+          margin: 'auto'
+        };
+      }
+    },
+    responsiveBtn() {
+      if (this.$vuetify.display.smAndDown) {
+        return {
+          maxWidth: '7rem',
+          width: '95%',
+          margin: '0 auto',
+          marginTop: '2rem',
+        };
+      } else {
+        return {
+          maxWidth: 'auto',
+          width: '100%',
+          height: '100%',
+          marginTop: '0px',
+        };
+      }
+    },
+    responsiveRow() {
+      if (this.$vuetify.display.smAndDown) {
+        return {
+          justifyContent: 'center',
+          height: 'auto',
+        };
+      } else {
+        return {
+          justifyContent: 'center',
+          height: '4rem'
+        };
+      }
+    }
+  },
   methods: {
     // params로 게시판 구분, query로 페이지 구분
     movetoboard1() {
@@ -105,7 +168,6 @@ export default {
           }
         }).then(res => {
           this.contentlist = res.data;
-          console.log(this.contentlist.length);
           this.searchcnt = this.contentlist[Object.keys(this.contentlist).length - 1].cnt;
           this.contentlist.pop();
 

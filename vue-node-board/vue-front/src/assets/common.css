@@ -1,0 +1,88 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=Jua&family=Orbit&display=swap');
+
+.jua-regular {
+  font-family: "Jua", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.orbit-regular {
+  font-family: "Orbit", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  min-width: 420px;
+}
+
+.v-container {
+  padding: 1rem;
+}
+
+.v-col-12 {
+  padding: 0.75rem;
+}
+
+.v-field.v-field--variant-underlined .v-field__append-inner {
+  align-items: center;
+}
+
+.v-btn--size-default {
+  font-size: 1rem;
+  min-width: auto;
+}
+
+.main .v-text-field .v-field__input,
+.main .v-select .v-field__input {
+  padding-top: 0;
+  padding-inline: 0.5rem;
+}
+
+.main .v-field.v-field--variant-underlined .v-field__append-inner,
+.main .v-field__append-inner,
+.main .v-field .v-field--variant-underlined .v-field__clearable {
+  padding-top: 0;
+}
+.main .v-label.v-field-label {
+  transform: translateY(-50%);
+}
+
+.content .v-textarea .v-field__input {
+  mask-image: none;
+  -webkit-mask-image: none;
+}
+
+.write .v-file-input input[type=file] + .v-field__input {
+  padding-top: 1.5rem;
+  font-size: 0.9rem;
+}
+
+
+.v-field--active.v-field--variant-underlined .v-label.v-field-label {
+  /* top: 10px; */
+  /* transform: translateY(-50%); */
+  /* top: 20px; */
+  /* top: 40%; */
+  /* left: 0.3rem; */
+  /* transform: translateY(0%); */
+}
+
+.v-field--focused .v-label.v-field-label {
+
+}
+
+
+
+@media screen and (max-width: 1280px) {
+  html, body {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  html, body {
+    font-size: 12px;
+  }
+}
