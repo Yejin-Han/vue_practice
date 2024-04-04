@@ -28,6 +28,7 @@ router.post('/write', function(req, res) {
     text: req.body.text,
     imgcnt: req.body.imgcnt,
   }).then(function() {
+    console.log(req.body.imgcnt);
     return res.status(200).json({ message: '글 작성 완료!' });
   }).catch(function(err) {
     console.log(err);
@@ -70,6 +71,7 @@ router.post('/boardlistcnt', function(req, res) {
 
 // 게시글 보기
 router.post('/content', function(req, res) {
+  console.log(db.sequelize);
   db.content.findOne({ // id에 맞는 게시글 정보 하나만 불러오면 됨
     where: {
       id: req.body.id
@@ -166,6 +168,7 @@ router.post('/imagesave', upload.array('filelist'), function(req, res) {
     order: [['id', 'DESC']],
     raw: true,
   }).then(result => {
+    
     try {
       newname = result.id;
     } catch(e) {
@@ -173,16 +176,30 @@ router.post('/imagesave', upload.array('filelist'), function(req, res) {
       newname = 0;
     }
 
-    for(i = 0; i < req.files.length; i++) {
+    for(i = 1; i <= newImgCnt; i++) {
       // 위에서 지정한 이미지이름(원본 그대로)을 filesystem을 통해 바꿔주는 작업
-      fs.renameSync(req.files[i].path, 'uploads/' + (newname + 1) + '-' + (i + 1) + '.png');
+      fs.renameSync(req.files[i].path, 'uploads/' + newname + '-' + i + '.png');
     }
+    
+    const newImgCnt = req.files.length;
+    const contentId = result ? result.id + 1 : 1;
 
-    return res.status(200).json({ message: '이미지 업로드 완료!' });
+    db.content.update({ imgcnt: newImgCnt }, {
+      where: { id: contentId }
+    }).then(updateResult => {
+      return res.status(200).json({
+        message: '이미지 업로드 완료!',
+        imgcnt: req.files.length
+      });
+    }).catch(err => {
+      console.log(err);
+  
+      return res.status(404).json({ message: 'imgcnt 업데이트 에러' });
+    });
   }).catch(err => {
     console.log(err);
 
-    return res.status(404).json(return res.status(404).json({ message: '에러' }););
+    return res.status(404).json({ message: '에러' });
   });
 });
 

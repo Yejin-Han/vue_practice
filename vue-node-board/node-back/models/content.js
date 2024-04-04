@@ -15,6 +15,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    imgcnt: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: 0,
+    },
     /* updatedAt, createdAt은 sequelize에서 자동으로 생성해준다고 함 */
   }, {
     charset: 'utf8',
