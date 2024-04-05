@@ -14,12 +14,17 @@
           <v-col cols="12" md="10">
               <v-card style="padding: 2rem 6%;">
                 <div><div style="display: inline-block; width: 6rem;">작성자</div><div style="display: inline-block;">: {{ writer }}</div></div>
-                <div style="margin-top: 0.625rem;"><div style="display: inline-block; width: 6rem;">제목</div><div style="display: inline-block;">: {{ title }}</div></div>
+                <div style="margin-top: 0.625rem; position: relative;">
+                  <div style="display: inline-block; width: 6rem;">제목</div>
+                  <div class="title">:&nbsp;<v-text-field v-model="title" hide-details="auto" density="compact" :disabled="editable===false" :style="{display: 'inline-block'}"></v-text-field></div>
+                </div>
                 <div style="margin-top: 0.625rem;"><div style="display: inline-block; width: 6rem;">작성일</div><div style="display: inline-block;">: {{ changeTime(createdAt) }}</div></div>
                 <div style="margin-top: 0.625rem;"><div style="display: inline-block; width: 6rem;">최근수정일</div><div style="display: inline-block;">: {{ changeTime(updatedAt) }}</div></div>
                 <div style="margin-top: 1.5rem;">내용</div>
                 <v-textarea variant="solo" no-resize hide-details="auto" v-model="text" rows="13" :style="{marginTop: '0.625rem'}" :readonly="editable===false"></v-textarea> <!-- 기본은 수정 불가, 수정버튼을 누르면 수정할 수 있도록 -->
-                <v-img v-for="(item, idx) in imglist" :key="idx" :src="require(`../../../node-back/uploads/${item}`)" cover style="width: 25rem; height: 18.75rem; border: 1px solid #999; margin-bottom: 1rem;" />
+                <div v-if="imgcnt" style="margin-top: 2rem;">
+                  <v-img v-for="(item, idx) in imglist" :key="idx" :src="require(`../../../node-back/uploads/${item}`)" cover style="width: 25rem; height: 18.75rem; border: 1px solid #999; margin-bottom: 1rem;" />
+                </div>
                 <div style="text-align: right; margin: 2rem 0 1.25rem;">
                   <v-btn style="width: 5rem;" @click="moveback">뒤로</v-btn>
                   <v-btn style="width: 5rem; margin-left: 1rem;" @click="editcontent" v-if="editable===false">수정</v-btn>
@@ -51,29 +56,7 @@ export default {
     }
   },
   mounted() {
-    axios({
-      url: "http://127.0.0.1:52273/content/content/",
-      method: "POST",
-      data: {
-        id: this.$route.query.id
-      },
-    }).then(res => {
-      this.writer = res.data.writer;
-      this.title = res.data.title;
-      this.createdAt = res.data.createdAt;
-      this.updatedAt = res.data.updatedAt;
-      this.text = res.data.text;
-      this.imgcnt = res.data.imgcnt;
-      console.log(res.data);
-
-      for(let i = 1; i <= res.data.imgcnt; i++) {
-        this.imglist.push(res.data.id + '-' + i + '.png'); // 이미지 저장 시 '글의id - 1.png' 형식
-      console.log(res.data.id + '-' + i + '.png');
-      }
-
-    }).catch(err => {
-      alert(err);
-    });
+    this.fetchData();
   },
   methods: {
     moveback() {
@@ -81,6 +64,29 @@ export default {
     },
     movetomain() {
       window.location.href="/";
+    },
+    fetchData() {
+      axios({
+        url: "http://127.0.0.1:52273/content/content/",
+        method: "POST",
+        data: {
+          id: this.$route.query.id
+        },
+      }).then(res => {
+        this.writer = res.data.writer;
+        this.title = res.data.title;
+        this.createdAt = res.data.createdAt;
+        this.updatedAt = res.data.updatedAt;
+        this.text = res.data.text;
+        this.imgcnt = res.data.imgcnt;
+
+        for(let i = 0; i < res.data.imgcnt; i++) {
+          this.imglist.push(res.data.id + '-' + (i + 1) + '.png'); // 이미지 저장 시 '글의id - 1.png' 형식
+        }
+
+      }).catch(err => {
+        alert(err);
+      });
     },
     editcontent() {
       this.editable = true;
@@ -91,6 +97,7 @@ export default {
         method: "POST",
         data: {
           id: this.$route.query.id,
+          title: this.title,
           text: this.text
         },
       }).then(res => {

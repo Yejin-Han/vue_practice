@@ -49,6 +49,49 @@ body {
   transform: translateY(-50%);
 }
 
+.content .title {
+  width: calc(100% - 6rem);
+  display: inline-flex;
+  align-items: center;
+}
+
+.content .title .v-text-field .v-field__input {
+  padding: 0;
+}
+
+.content .title .v-input--density-compact .v-field--variant-outlined,
+.content .title .v-input--density-compact .v-field--single-line,
+.content .title .v-input--density-compact .v-field--no-label {
+  --v-field-padding-bottom: 0 !important;
+}
+
+.content .title .v-text-field .v-field {
+  font-size: inherit;
+}
+
+.content .title .v-text-field .v-field--variant-filled .v-field__overlay {
+  background: transparent;
+  border-bottom-width: 0px !important;
+}
+
+.content .title .v-text-field .v-field--variant-filled .v-field__outline {
+  --v-field-border-width: 0;
+}
+
+.content .title .v-text-field .v-input--density-compact { 
+  padding: 0;
+  /* --v-input-control-height: 0 !important;
+  --v-input-padding-top: 0 !important; */
+}
+
+.content .title .v-text-field .v-field__input input {
+  display: none;
+}
+
+.content .title .v-field--disabled {
+  opacity: 1;
+}
+
 .content .v-textarea .v-field__input {
   mask-image: none;
   -webkit-mask-image: none;

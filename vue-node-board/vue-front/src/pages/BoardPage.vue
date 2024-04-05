@@ -6,13 +6,13 @@
       </v-app-bar-title>
     </v-app-bar>
     <v-main>
-      <v-container :style="{marginTop: '2rem'}">
+      <v-container :style="{marginTop: '2rem', width: '95%'}">
         <v-row>
           <v-col cols="12" md="4"></v-col>
-          <v-col cols="12" md="2">
+          <v-col cols="12" md="2" :style="{textAlign: 'center'}">
             <v-btn color="blue-grey-darken-2" :style="{height:'3.125rem', width:'10.625rem', fontWeight:'bold', fontSize:'1.125rem'}" @click="movetomain">홈으로</v-btn>
           </v-col>
-          <v-col cols="12" md="2">
+          <v-col cols="12" md="2" :style="{textAlign: 'center'}">
             <v-btn color="yellow-lighten-2" :style="{height:'3.125rem', width:'10.625rem', fontWeight:'bold', fontSize:'1.125rem'}" @click="movetowrite">작성하기</v-btn>
           </v-col>
           <v-col cols="12" md="2"></v-col>

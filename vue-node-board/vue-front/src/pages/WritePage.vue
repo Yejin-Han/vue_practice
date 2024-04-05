@@ -104,7 +104,7 @@ export default {
         data: formData,
       }).then(res => {
         console.log(res.data.message);
-        this.imgcnt = file.length; // 이미지 개수 저장
+        this.imgcnt = Array.from(file.srcElement.files).length; // 이미지 개수 저장
       }).catch(err => {
         alert(err);
       });
