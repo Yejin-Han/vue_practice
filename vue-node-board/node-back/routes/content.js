@@ -28,7 +28,6 @@ router.post('/write', function(req, res) {
     text: req.body.text,
     imgcnt: req.body.imgcnt,
   }).then(function() {
-    console.log(req.body.imgcnt);
     return res.status(200).json({ message: '글 작성 완료!' });
   }).catch(function(err) {
     console.log(err);
@@ -71,7 +70,6 @@ router.post('/boardlistcnt', function(req, res) {
 
 // 게시글 보기
 router.post('/content', function(req, res) {
-  console.log(db.sequelize);
   db.content.findOne({ // id에 맞는 게시글 정보 하나만 불러오면 됨
     where: {
       id: req.body.id
@@ -161,44 +159,37 @@ router.post('/search', function(req, res) {
 
 // 글 작성 페이지에서 이미지를 올리면 실행하는 부분
 router.post('/imagesave', upload.array('filelist'), function(req, res) {
-  // 전송된 formData의 filelist에 해당하는 value 값들을 multer을 통해 저장
   let i, newname;
+
   db.content.findOne({ // 새 글 작성 시 기존에 있던 가장 큰 id + 1로 자동 저장되므로, 가장 큰 id를 찾아줌
     limit: 1,
     order: [['id', 'DESC']],
     raw: true,
   }).then(result => {
-    
     try {
-      newname = result.id;
+      newname = result ? result.id : 0;
     } catch(e) {
       // 등록된 글이 하나도 없으면 id가 null이여서 에러 발생하므로 대신 0으로 설정
       newname = 0;
     }
 
-    for(i = 1; i <= newImgCnt; i++) {
+    for(i = 0; i < req.files.length; i++) {
       // 위에서 지정한 이미지이름(원본 그대로)을 filesystem을 통해 바꿔주는 작업
-      fs.renameSync(req.files[i].path, 'uploads/' + newname + '-' + i + '.png');
+      fs.renameSync(req.files[i].path, 'uploads/' + (newname + 1) + '-' + (i + 1) + '.png');
     }
-    
-    const newImgCnt = req.files.length;
-    const contentId = result ? result.id + 1 : 1;
 
-    db.content.update({ imgcnt: newImgCnt }, {
-      where: { id: contentId }
-    }).then(updateResult => {
-      return res.status(200).json({
-        message: '이미지 업로드 완료!',
-        imgcnt: req.files.length
-      });
+    // 이미지 업로드 후 imgcnt 업데이트
+    db.content.update({ imgcnt: req.files.length }, {
+      where: { id: newname + 1 }
+    }).then(() => {
+      return res.status(200).json({ message: '이미지 업로드 완료!' });
     }).catch(err => {
-      console.log(err);
-  
-      return res.status(404).json({ message: 'imgcnt 업데이트 에러' });
+      console.error(err);
+      return res.status(500).json({ message: 'imgcnt 업데이트 에러' });
     });
+
   }).catch(err => {
     console.log(err);
-
     return res.status(404).json({ message: '에러' });
   });
 });

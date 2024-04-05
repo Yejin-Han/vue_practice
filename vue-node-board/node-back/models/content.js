@@ -17,7 +17,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     imgcnt: {
       type: DataTypes.INTEGER,
-      allowNull: true,
       defaultValue: 0,
     },
     /* updatedAt, createdAt은 sequelize에서 자동으로 생성해준다고 함 */
