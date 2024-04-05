@@ -122,7 +122,7 @@ export default {
       if(this.$route.query.page == 1) {
         alert('첫번째 페이지입니다!');
       } else {
-        var pp = parseInt(this.$route.query.page) - 1;
+        const pp = parseInt(this.$route.query.page) - 1;
         window.location.href = window.location.pathname + '?page=' + pp;
       }
     },
@@ -130,7 +130,7 @@ export default {
       if(this.$route.query.page == Math.ceil(this.cnt / 10)) {
         alert('마지막 페이지입니다!');
       } else {
-        var pp = parseInt(this.$route.query.page) + 1;
+        const pp = parseInt(this.$route.query.page) + 1;
         window.location.href = window.location.pathname + '?page=' + pp;
       }
     }
@@ -139,12 +139,24 @@ export default {
 </script>
 
 <style scoped>
-tr, td {
-  border: 1px solid #333;
-  text-align: center;
+tr {
+  border-bottom: 1px solid #eee;
+}
+
+thead tr {
+  border-top: 1px solid #eee;
+}
+
+tbody tr:hover {
+  background: #f9f9f9;
 }
 
 td {
   padding: 0.8rem 0.5rem;
+  text-align: center;
+}
+
+tbody td:nth-child(2) {
+  text-align: left;
 }
 </style>

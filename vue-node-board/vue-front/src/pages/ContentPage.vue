@@ -84,6 +84,8 @@ export default {
           this.imglist.push(res.data.id + '-' + (i + 1) + '.png'); // 이미지 저장 시 '글의id - 1.png' 형식
         }
 
+        console.log(res.data);
+
       }).catch(err => {
         alert(err);
       });

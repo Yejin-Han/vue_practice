@@ -43,7 +43,7 @@ router.post('/boardlist', function(req, res) {
     },
     offset: 0 + (req.body.page - 1) * 10, // 현 페이지에 맞는 글 찾기
     limit: 10, // 글 10개만 가져오기
-    order: [['id', 'ASC']], // id를 기준으로 오름차순 정렬
+    order: [['id', 'DESC']], // id를 기준으로 오름차순 정렬
     raw: true, // db에서 field 정보만 가져오는 설정
   }).then(result => {
     return res.status(200).json(result);
@@ -76,6 +76,10 @@ router.post('/content', function(req, res) {
     },
     raw: true,
   }).then(result => {
+    if(!result.text || result.text.trim() === '') { // 아예 내용이 없거나 공백을 제거했을 때 아무것도 남지 않는 경우
+      result.text = `(내용이 없습니다)`;
+    }
+
     return res.status(200).json(result);
   }).catch(err => {
     console.log(err);
@@ -85,12 +89,39 @@ router.post('/content', function(req, res) {
 
 // 게시글 삭제
 router.post('/delete', function(req, res) {
+  const postId = req.body.id;
+
+  // 데이터베이스에서 게시글 삭제
   db.content.destroy({
     where: {
-      id: req.body.id
+      id: postId
     },
   }).then(function() {
-    return res.status(200).json({ message: '글 삭제 완료!' });
+    // 연관된 이미지 파일들도 삭제
+    const uploadDir = path.join(__dirname, '../uploads');
+
+    fs.readdir(uploadDir, (err, files) => {
+      if (err) {
+        console.error("디렉토리 읽는 중 에러 발생: ", err);
+        return res.status(500).json({ message: '이미지 파일 삭제 중 에러 발생' });
+      }
+
+      // postId와 일치하는 모든 이미지 파일 찾기
+      const relatedFiles = files.filter(file => file.startsWith(`${postId}-`));
+      
+      // 관련 이미지 파일들 삭제
+      relatedFiles.forEach(file => {
+        fs.unlink(path.join(uploadDir, file), err => {
+          if (err) {
+            console.error(`${file} 삭제 중 에러 발생:`, err);
+          } else {
+            console.log(`${file} 삭제 완료`);
+          }
+        });
+      });
+
+      return res.status(200).json({ message: '글 삭제 완료!' });
+    });
   }).catch(err => {
     console.log(err);
     return res.status(404).json({ message: '에러' });

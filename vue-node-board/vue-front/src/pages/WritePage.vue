@@ -58,23 +58,29 @@ export default {
       window.location.href = "/";
     },
     onSubmitForm() {
-      if(this.$refs.form.validate()) { // 위에 써 준 rules를 만족하면 실행
-        axios({
-          url: "http://127.0.0.1:52273/content/write",
-          method: "POST",
-          data: {
-            boardnum : this.$route.params.id,
-            writer: this.writer,
-            title: this.title,
-            text: this.text,
-            imgcnt: this.imgcnt,
-          }
-        }).then(res => {
-          alert(res.data.message);
-          window.history.back();
-        }).catch(err => {
-          alert(err);
-        });
+      if(this.writer == '') {
+        alert('작성자를 입력해주세요.');
+      } else if(this.title == '') {
+        alert('제목을 입력해주세요.');
+      } else if(this.writer !== '' && this.title !== '') {
+        if(this.$refs.form.validate()) { // 위에 써 준 rules를 만족하면 실행
+          axios({
+            url: "http://127.0.0.1:52273/content/write",
+            method: "POST",
+            data: {
+              boardnum : this.$route.params.id,
+              writer: this.writer,
+              title: this.title,
+              text: this.text,
+              imgcnt: this.imgcnt,
+            }
+          }).then(res => {
+            alert(res.data.message);
+            window.history.back();
+          }).catch(err => {
+            alert(err);
+          });
+        }
       }
     },
     onImgChange(file) { // v-file-input에 변경이 일어날 때
