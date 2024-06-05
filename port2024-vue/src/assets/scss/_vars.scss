@@ -34,6 +34,5 @@
     }
 }
 
-body {
-    background-color: var(--mainBg-color);
-}
+html, body { height: 100%; }
+body { background-color: var(--mainBg-color); }

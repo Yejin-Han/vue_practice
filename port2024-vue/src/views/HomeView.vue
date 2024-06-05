@@ -21,3 +21,7 @@ import SkipSection from '@/components/SkipSection.vue';
     </main>
     <FooterSection />
 </template>
+
+<style>
+main { height: 100%; }
+</style>
