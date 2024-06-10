@@ -193,6 +193,17 @@ export const portText = [
     },
 ];
 
+export const contactText = [
+    {
+        link: "https://github.com/Yejin-Han",
+        title: "github: Yejin-Han",
+    },
+    {
+        link: "mailto:yjhan505@gmail.com",
+        title: "mail: yjhan505@gmail.com",
+    }
+];
+
 export const footerText = [
     {
         title: "Game01",
