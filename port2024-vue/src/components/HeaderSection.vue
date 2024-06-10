@@ -13,7 +13,7 @@ import { headerNav } from '@/constants/index';
             <nav class="header__nav" role="navigation" aria-label="메인 메뉴" :class="{ show: isNavVisible }">
                 <ul>
                     <li v-for="(nav, key) in headerNav" :key="key">
-                        <a :href="nav.url">{{ nav.title }}</a>
+                        <a :href="nav.url" @click="scrollLink($event)">{{ nav.title }}</a>
                     </li>
                 </ul>
             </nav>
@@ -35,6 +35,16 @@ export default {
         toggleMobileMenu() {
             this.isNavVisible = !this.isNavVisible;
         },
+        scrollLink(event) {
+            event.preventDefault();
+
+            const targetId = event.target.getAttribute("href");
+            const targetElement = document.querySelector(targetId);
+
+            if(targetElement) {
+                targetElement.scrollIntoView({ behavior: "smooth" }); // 호출된 요소가 사용자에게 보여지도록 상위 요소의 스크롤 이동
+            }
+        }
     },
 };
 </script>

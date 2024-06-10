@@ -40,7 +40,7 @@ import { introText } from '@/constants/index';
 
 <style lang="scss" scoped>
 #intro {
-    height: 100%;
+    height: 100vh;
 }
 
 .intro__inner {
