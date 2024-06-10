@@ -40,3 +40,26 @@ export const skillText = [
         desc: "정직은 다른 사람보다 나에게 큰 의미를 부여해야 한다. 자신이 정직하지 않으면 진정으로 원하는 일을 열정적으로 밀고 나갈 수 없다. 마음에서 우러나오는 일을 해야 정직해지며 삶을 더 즐길 줄 알게 된다."
     }
 ];
+
+export const footerText = [
+    {
+        title: "Game01",
+        desc: "지뢰찾기 게임입니다.",
+        link: "https://yejin-han.github.io/minesweeper/"
+    },
+    {
+        title: "Game02",
+        desc: "벽돌깨기 게임입니다.",
+        link: "https://yejin-han.github.io/breakout_game/phaser_atlas/"
+    },
+    {
+        title: "Game03",
+        desc: "숫자야구 게임입니다.",
+        link: "https://yejin-han.github.io/number_baseball/"
+    },
+    {
+        title: "Plan",
+        desc: "제주 여행계획을 간단하게 보여줄 페이지입니다.",
+        link: "https://yejin-han.github.io/jeju_plan/"
+    }
+]
