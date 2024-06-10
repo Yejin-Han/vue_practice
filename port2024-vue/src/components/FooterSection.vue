@@ -116,7 +116,7 @@ import { footerText } from "@/constants/index";
                     a {
                         padding: 14px 0;
                         font-size: 14px;
-                        display: inline;
+                        display: inline-block;
                         text-transform: uppercase;
                     }
 
