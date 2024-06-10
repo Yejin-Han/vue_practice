@@ -28,7 +28,7 @@ import { footerText } from "@/constants/index";
             </div>
             <div class="footer__right">
                 © 2023 Yejin-Han<br>
-                이 사이트는 데모 따라하기로 제작되었습니다.
+                이 사이트는 뷰를 이용하여 제작되었습니다.
             </div>
         </div>
     </footer>

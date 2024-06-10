@@ -21,6 +21,39 @@ import { portText } from "@/constants/index";
     </section>
 </template>
 
+<script>
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
+export default {
+    mounted: function() {
+        this.scrollAnimation();
+    },
+    methods: {
+        scrollAnimation() {
+            const horSection = gsap.utils.toArray(".port__item");
+
+            gsap.to(horSection, {
+                xPercent: -120 * (horSection.length - 1),
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "#port",
+                    start: "top 56px",
+                    end: "+=3000",
+                    pin: true, // 트리거 요소를 스크롤 시 고정시킴
+                    scrub: 1, // 스크롤과 애니메이션 동기화
+                    markers: false, // 스크롤 트리거의 시작과 끝 지점을 시각적으로 표시
+                    invalidateOnRefresh: true, // refresh, resize 시 애니메이션 다시 계산
+                    anticipatePin: 1, // 핀이 예상되는 시점보다 조금 일찍 핀을 활성화함
+                }
+            });
+        }
+    }
+}
+</script>
+
 <style lang="scss">
 #port {
     width: 100%;
